@@ -21,18 +21,22 @@ public class StoppedState implements State {
     @Override
     public void stopped() {
         goOut();
+        comeIn();
         if (queueInElevator.isEmpty() && queueOnFloors.isEmpty()) {
             return;
         }
-        comeIn();
-        if (queueInElevator.isEmpty() || queueOnFloors.isEmpty()) {
-            return;
+
+        Integer nextFloor = queueInElevator.peek();
+        if (nextFloor == null && queueOnFloors.peek() != null) {
+            nextFloor = queueOnFloors.peek().getFloor();
         }
-        if (queueInElevator.peek() > elevator.getCurrentFloor().get()) {
+
+        if (nextFloor > elevator.getCurrentFloor().get()) {
             elevator.setState(elevator.getMovingUpState());
         } else {
             elevator.setState(elevator.getMovingDownState());
         }
+        elevator.moving();
     }
 
     private void goOut() {

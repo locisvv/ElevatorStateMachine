@@ -94,9 +94,8 @@ public class Elevator {
             } else {
                 setState(movingDownState);
             }
-
-            state.moving();
         }
+        state.moving();
     }
 
     public void setProgressBar(JProgressBar progressBar) {

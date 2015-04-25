@@ -25,26 +25,29 @@ public class NavigationButtons {
     private JPanel newNavigationButtons(final int currentFloor) {
         JPanel buttons = new JPanel();
 
-        JButton upButton = new JButton("Up");
-        upButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                elevator.addUpWaiter(currentFloor);
-                System.out.println("Up");
-            }
-        });
+        if (currentFloor < Elevator.FLOORS) {
+            JButton upButton = new JButton("Up");
+            upButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    elevator.addUpWaiter(currentFloor);
+                    System.out.println("Up");
+                }
+            });
+            buttons.add(upButton);
+        }
 
-        JButton downButton = new JButton("Down");
-        downButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Down");
-                elevator.addDownWaiter(currentFloor);
-            }
-        });
-
-        buttons.add(upButton);
-        buttons.add(downButton);
+        if (currentFloor > Elevator.FIRST_FLOOR) {
+            JButton downButton = new JButton("Down");
+            downButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    System.out.println("Down");
+                    elevator.addDownWaiter(currentFloor);
+                }
+            });
+            buttons.add(downButton);
+        }
 
         return buttons;
     }

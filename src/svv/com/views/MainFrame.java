@@ -1,15 +1,10 @@
 package svv.com.views;
 
-import build.tools.javazic.Main;
 import svv.com.controlers.Elevator;
 
 import javax.swing.*;
 
-/**
- * Created by svv on 4/21/15.
- */
 public class MainFrame {
-
     private JPanel floorsPanel;
     private JPanel elevatorPanel;
     private JPanel elevatorButtonsPanel;
