@@ -13,10 +13,8 @@ public class MovingUpState implements State {
         int currentFloor = elevator.getCurrentFloor().get();
 
         for (int floor = currentFloor; floor <= Elevator.FLOORS; ++floor) {
-            if (elevator.getQueueInElevator().contains(floor) ||
-                    elevator.getQueueOnFloors().contains(new WaiterAtFloor(floor, Orientation.UP)) || (
-                    !elevator.getQueueOnFloors().isEmpty() && elevator.getQueueOnFloors().peek().getFloor() == floor)) {
-
+            if (elevator.willAnybodyGoOutAtThisFloor(floor) ||
+                    elevator.willAnybodyGoIntoElevator(floor, Orientation.UP)) {
                 elevator.getCurrentFloor().set(floor);
                 elevator.setState(elevator.getAtFloorState());
                 elevator.stopped();
@@ -28,6 +26,6 @@ public class MovingUpState implements State {
 
     @Override
     public void atFloor() {
-        throw new IllegalStateException("Elevator is moving. You cant stop now");
+        throw new IllegalStateException("Elevator is moving up. You cant stop now");
     }
 }

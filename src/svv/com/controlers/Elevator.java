@@ -103,4 +103,23 @@ public class Elevator {
     public void stopped() {
         state.atFloor();
     }
+
+    public boolean willAnybodyGoOutAtThisFloor(int floor) {
+        if (queueInElevator.isEmpty()) {
+            return false;
+        }
+        return queueInElevator.contains(floor);
+    }
+
+    public boolean willAnybodyGoIntoElevator(int floor, Orientation orientation) {
+        if (!queueOnFloors.isEmpty()) {
+            if (queueOnFloors.contains(new WaiterAtFloor(floor, orientation))){
+                return true;
+            }
+            if (queueOnFloors.peek().getFloor() == floor) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -13,10 +13,8 @@ public class MovingDownState implements State {
         final int currentFloor = elevator.getCurrentFloor().get();
 
         for (int floor = currentFloor; floor >= Elevator.FIRST_FLOOR; --floor) {
-            if (elevator.getQueueInElevator().contains(floor) ||
-                    elevator.getQueueOnFloors().contains(new WaiterAtFloor(floor, Orientation.DOWN)) || (
-                    !elevator.getQueueOnFloors().isEmpty() && elevator.getQueueOnFloors().peek().getFloor() == floor)) {
-
+            if (elevator.willAnybodyGoOutAtThisFloor(floor) ||
+                    elevator.willAnybodyGoIntoElevator(floor, Orientation.DOWN)) {
                 elevator.getCurrentFloor().set(floor);
                 elevator.setState(elevator.getAtFloorState());
                 elevator.stopped();
@@ -28,6 +26,6 @@ public class MovingDownState implements State {
 
     @Override
     public void atFloor() {
-        throw new IllegalStateException("Elevator is moving. You cant go out");
+        throw new IllegalStateException("Elevator is moving down. You cant go out");
     }
 }

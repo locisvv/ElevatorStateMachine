@@ -12,9 +12,6 @@ public class ElevatorView extends JComponent {
     private int currentFloor = 1;
     private int value;
 
-    ElevatorView(Elevator elevator) {
-
-    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

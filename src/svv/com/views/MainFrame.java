@@ -29,7 +29,7 @@ public class MainFrame {
         elevatorButtonsPanel.add(new ElevatorPanelButtons(elevator).getButtonsPanel());
 
         elevatorPanel = new JPanel();
-        ElevatorView elevatorView = new ElevatorView(elevator);
+        ElevatorView elevatorView = new ElevatorView();
         elevatorPanel.setLayout(new BorderLayout());
         elevatorPanel.add(elevatorView);
 
