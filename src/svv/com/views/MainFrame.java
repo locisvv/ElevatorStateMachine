@@ -3,6 +3,7 @@ package svv.com.views;
 import svv.com.controlers.Elevator;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainFrame {
     private JPanel floorsPanel;
@@ -28,6 +29,10 @@ public class MainFrame {
         elevatorButtonsPanel.add(new ElevatorPanelButtons(elevator).getButtonsPanel());
 
         elevatorPanel = new JPanel();
-        elevatorPanel.add(new ElevatorView(elevator).getElevatorPanel());
+        ElevatorView elevatorView = new ElevatorView(elevator);
+        elevatorPanel.setLayout(new BorderLayout());
+        elevatorPanel.add(elevatorView);
+
+        elevator.setElevatorView(elevatorView);
     }
 }

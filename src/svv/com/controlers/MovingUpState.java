@@ -17,18 +17,17 @@ public class MovingUpState implements State {
                     elevator.getQueueOnFloors().contains(new WaiterAtFloor(floor, Orientation.UP)) || (
                     !elevator.getQueueOnFloors().isEmpty() && elevator.getQueueOnFloors().peek().getFloor() == floor)) {
 
-                elevator.getProgressBar().setValue((floor * 20));
                 elevator.getCurrentFloor().set(floor);
-                System.out.println("floor :" + floor);
-                elevator.setState(elevator.getStoppedState());
+                elevator.setState(elevator.getAtFloorState());
                 elevator.stopped();
                 return;
             }
+            elevator.getElevatorView().oneFloorUp();
         }
     }
 
     @Override
-    public void stopped() {
+    public void atFloor() {
         throw new IllegalStateException("Elevator is moving. You cant stop now");
     }
 }

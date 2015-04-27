@@ -1,6 +1,7 @@
 package svv.com;
 
 import svv.com.controlers.Elevator;
+import svv.com.controlers.ElevatorWorker;
 import svv.com.views.MainFrame;
 
 import javax.swing.*;
@@ -9,6 +10,9 @@ public class Main extends JFrame{
 
     public Main() {
         Elevator elevator = new Elevator();
+        ElevatorWorker elevatorWorker = new ElevatorWorker(elevator);
+        elevatorWorker.execute();
+
         MainFrame mainFrame = new MainFrame(elevator);
         this.add(mainFrame.getBuilding());
     }

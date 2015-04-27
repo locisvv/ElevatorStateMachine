@@ -1,8 +1,9 @@
 package svv.com.controlers;
 
-import javax.swing.*;
-import java.util.LinkedList;
+import svv.com.views.ElevatorView;
+
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Elevator {
@@ -16,25 +17,21 @@ public class Elevator {
     private State state;
     private MovingUpState movingUpState;
     private MovingDownState movingDownState;
-    private StoppedState stoppedState;
+    private AtFloorState atFloorState;
 
-    public JProgressBar getProgressBar() {
-        return progressBar;
-    }
-
-    private JProgressBar progressBar;
+    private ElevatorView elevatorView;
 
     public Elevator() {
         currentFloor = new AtomicInteger(FIRST_FLOOR);
 
-        queueInElevator = new LinkedList<Integer>();
-        queueOnFloors = new LinkedList<WaiterAtFloor>();
+        queueInElevator = new ConcurrentLinkedQueue<Integer>();
+        queueOnFloors = new ConcurrentLinkedQueue<WaiterAtFloor>();
 
         movingUpState = new MovingUpState(this);
         movingDownState = new MovingDownState(this);
-        stoppedState = new StoppedState(this);
+        atFloorState = new AtFloorState(this);
 
-        state = stoppedState;
+        state = atFloorState;
     }
 
     public Queue<WaiterAtFloor> getQueueOnFloors() {
@@ -55,7 +52,7 @@ public class Elevator {
         } else if (state instanceof MovingUpState) {
             System.out.println("MovingUpState");
         } else {
-            System.out.println("StoppedState");
+            System.out.println("AtFloorState");
         }
         this.state = state;
     }
@@ -68,27 +65,24 @@ public class Elevator {
         return movingDownState;
     }
 
-    public StoppedState getStoppedState() {
-        return stoppedState;
+    public AtFloorState getAtFloorState() {
+        return atFloorState;
     }
 
     public void addUpWaiter(int currentFloor) {
         queueOnFloors.add(new WaiterAtFloor(currentFloor, Orientation.UP));
-        moving();
     }
 
     public void addDownWaiter(int currentFloor) {
         queueOnFloors.add(new WaiterAtFloor(currentFloor, Orientation.DOWN));
-        moving();
     }
     
     public void moving() {
-        if (state instanceof StoppedState) {
+        if (state instanceof AtFloorState) {
             Integer nextFloor = queueInElevator.peek();
             if (nextFloor == null) {
                 nextFloor = queueOnFloors.peek().getFloor();
             }
-
             if (nextFloor > getCurrentFloor().get()) {
                 setState(movingUpState);
             } else {
@@ -98,11 +92,15 @@ public class Elevator {
         state.moving();
     }
 
-    public void setProgressBar(JProgressBar progressBar) {
-        this.progressBar = progressBar;
+    public void setElevatorView(ElevatorView elevatorView) {
+        this.elevatorView = elevatorView;
+    }
+
+    public ElevatorView getElevatorView() {
+        return elevatorView;
     }
 
     public void stopped() {
-        state.stopped();
+        state.atFloor();
     }
 }

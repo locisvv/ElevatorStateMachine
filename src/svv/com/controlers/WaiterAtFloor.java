@@ -16,15 +16,8 @@ public class WaiterAtFloor {
         return orientation;
     }
 
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
-    }
-
     public int getFloor() {
         return floor;
-    }
-    public void setFloor(int floor) {
-        this.floor = floor;
     }
 
     @Override
@@ -36,7 +29,6 @@ public class WaiterAtFloor {
 
         if (floor != that.floor) return false;
         return orientation == that.orientation;
-
     }
 
     @Override

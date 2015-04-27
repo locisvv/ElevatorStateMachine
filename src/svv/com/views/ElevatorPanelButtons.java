@@ -3,8 +3,6 @@ package svv.com.views;
 import svv.com.controlers.Elevator;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class ElevatorPanelButtons {
@@ -31,7 +29,7 @@ public class ElevatorPanelButtons {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     elevator.getQueueInElevator().add(floor);
-                    elevator.moving();
+//                    elevator.moving();
                     System.out.println("floor: " + floor);
                 }
             });
