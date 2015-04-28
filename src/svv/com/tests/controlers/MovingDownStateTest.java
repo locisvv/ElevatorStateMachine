@@ -5,7 +5,7 @@ import org.junit.Test;
 import svv.com.controlers.Elevator;
 import svv.com.controlers.Orientation;
 import svv.com.controlers.WaiterAtFloor;
-import svv.com.views.MainFrame;
+import svv.com.views.MainPanel;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +19,7 @@ public class MovingDownStateTest {
     @Before
     public void runBeforeEveryTest() {
         elevator = new Elevator();
-        MainFrame mainFrame = new MainFrame(elevator);
+        MainPanel mainPanel = new MainPanel(elevator);
     }
 
     @Test

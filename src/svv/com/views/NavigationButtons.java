@@ -2,7 +2,8 @@ package svv.com.views;
 
 import svv.com.controlers.Elevator;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,44 +13,41 @@ public class NavigationButtons {
 
     public NavigationButtons(Elevator elevator) {
         this.elevator = elevator;
-    }
 
-    private void createUIComponents() {
         navigationPanel = new JPanel();
-        navigationPanel.setLayout(new BoxLayout(navigationPanel, BoxLayout.Y_AXIS));
+        navigationPanel.setLayout(null);
+        navigationPanel.setSize(new Dimension(500, 500));
+        navigationPanel.setOpaque(false);
+
         for (int i = Elevator.FLOORS; i >= Elevator.FIRST_FLOOR; i--) {
-            navigationPanel.add(newNavigationButtons(i));
+            newNavigationButtons(i);
         }
     }
 
-    private JPanel newNavigationButtons(final int currentFloor) {
-        JPanel buttons = new JPanel();
-
+    private void newNavigationButtons(final int currentFloor) {
         if (currentFloor < Elevator.FLOORS) {
-            JButton upButton = new JButton("Up");
+            UpButton upButton = new UpButton();
+            upButton.setBounds(225, ((currentFloor) * 70) + 120, 20, 20);
             upButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     elevator.addUpWaiter(currentFloor);
-                    System.out.println("Up");
                 }
             });
-            buttons.add(upButton);
+            navigationPanel.add(upButton);
         }
 
         if (currentFloor > Elevator.FIRST_FLOOR) {
-            JButton downButton = new JButton("Down");
+            DownButton downButton = new DownButton();
+            downButton.setBounds(225, ((currentFloor - 2) * 70) + 145, 20, 20);
             downButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    System.out.println("Down");
                     elevator.addDownWaiter(currentFloor);
                 }
             });
-            buttons.add(downButton);
+            navigationPanel.add(downButton);
         }
-
-        return buttons;
     }
 
     public JPanel getNavigationPanel() {

@@ -3,7 +3,7 @@ package svv.com.tests.controlers;
 import org.junit.Before;
 import org.junit.Test;
 import svv.com.controlers.Elevator;
-import svv.com.views.MainFrame;
+import svv.com.views.MainPanel;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +20,7 @@ public class MovingUpStateTest {
     @Before
     public void runBeforeEveryTest() {
         elevator = new Elevator();
-        MainFrame mainFrame = new MainFrame(elevator);
+        MainPanel mainPanel = new MainPanel(elevator);
     }
 
     @Test
