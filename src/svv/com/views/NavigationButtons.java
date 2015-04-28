@@ -19,7 +19,7 @@ public class NavigationButtons {
         navigationPanel.setSize(new Dimension(500, 500));
         navigationPanel.setOpaque(false);
 
-        for (int i = Elevator.FLOORS; i >= Elevator.FIRST_FLOOR; i--) {
+        for (int i = 1; i <= Elevator.FLOORS; i++) {
             newNavigationButtons(i);
         }
     }
@@ -27,11 +27,12 @@ public class NavigationButtons {
     private void newNavigationButtons(final int currentFloor) {
         if (currentFloor < Elevator.FLOORS) {
             UpButton upButton = new UpButton();
-            upButton.setBounds(225, ((currentFloor) * 70) + 120, 20, 20);
+            upButton.setBounds(225, 470 - (currentFloor * 70), 20, 20);
             upButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     elevator.addUpWaiter(currentFloor);
+                    System.out.println(currentFloor);
                 }
             });
             navigationPanel.add(upButton);
@@ -39,11 +40,12 @@ public class NavigationButtons {
 
         if (currentFloor > Elevator.FIRST_FLOOR) {
             DownButton downButton = new DownButton();
-            downButton.setBounds(225, ((currentFloor - 2) * 70) + 145, 20, 20);
+            downButton.setBounds(225, 495 - (currentFloor * 70), 20, 20);
             downButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     elevator.addDownWaiter(currentFloor);
+                    System.out.println(currentFloor);
                 }
             });
             navigationPanel.add(downButton);

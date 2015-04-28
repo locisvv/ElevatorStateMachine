@@ -2,15 +2,14 @@ package svv.com.views;
 
 import svv.com.controlers.Elevator;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+import java.awt.Dimension;
+import java.awt.Graphics;
 
 public class MainPanel extends JPanel{
     private Image img;
-    private JPanel floorsPanel;
-    private JPanel elevatorPanel;
-    private JPanel elevatorButtonsPanel;
-    private JPanel building;
     private Elevator elevator;
 
     public MainPanel(Elevator elevator) {
@@ -35,6 +34,7 @@ public class MainPanel extends JPanel{
 
     private void createElevatorView() {
         ElevatorView elevatorView = new ElevatorView();
+        elevatorView.setSize(new Dimension(500,500));
         add(elevatorView);
 
         elevator.setElevatorView(elevatorView);

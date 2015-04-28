@@ -23,6 +23,7 @@ public class AtFloorState implements State {
     public void atFloor() {
         goOut();
         comeIn();
+
         if (queueInElevator.isEmpty() && queueOnFloors.isEmpty()) {
             return;
         }

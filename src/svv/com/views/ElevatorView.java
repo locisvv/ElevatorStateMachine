@@ -7,36 +7,50 @@ import java.util.concurrent.TimeUnit;
 
 public class ElevatorView extends JComponent {
     private int currentFloor = 0;
-    private int value;
+    private int floorValue;
+    private int openDoorValue;
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.cyan);
-        g.drawRect(0, value * 4, 40, 80);
+        g.setColor(Color.BLUE);
+        g.drawRect(180,                 400 - (floorValue * 7), 18 - openDoorValue, 50);
+        g.drawRect(198 + openDoorValue, 400 - (floorValue * 7), 18 - openDoorValue, 50);
     }
 
     public void oneFloorUp() {
         for (int i = 0; i <= 10; i++) {
-            value = (currentFloor * 10) + i;
+            floorValue = (currentFloor * 10) + i;
             animation();
         }
-
         currentFloor++;
     }
 
     public void oneFloorDown() {
         for (int i = 0; i <= 10; i++) {
-            value = (currentFloor * 10) - i;
+            floorValue = (currentFloor * 10) - i;
             animation();
         }
         currentFloor--;
     }
 
+
+    private void openDoor() {
+        for (; openDoorValue < 10; openDoorValue++) {
+            animation();
+        }
+    }
+
+    private void closeDoor() {
+        for (; openDoorValue > 0; openDoorValue--) {
+            animation();
+        }
+    }
+
     private void animation() {
         try {
             repaint();
-            TimeUnit.MICROSECONDS.sleep(10000);
+            TimeUnit.MICROSECONDS.sleep(50000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
