@@ -44,15 +44,7 @@ public class Elevator {
 
     public void moving() {
         if (state instanceof AtFloorState) {
-            Integer nextFloor = queueInElevator.peek();
-            if (nextFloor == null) {
-                nextFloor = queueOnFloors.peek().getFloor();
-            }
-            if (nextFloor > getCurrentFloor().get()) {
-                setState(movingUpState);
-            } else {
-                setState(movingDownState);
-            }
+            defineElevatorOrientation();
         }
         state.moving();
     }
@@ -63,8 +55,17 @@ public class Elevator {
         state.atFloor();
     }
 
-    public void defineOrientation() {
+    public void defineElevatorOrientation() {
+        Integer nextFloor = queueInElevator.peek();
+        if (nextFloor == null) {
+            nextFloor = queueOnFloors.peek().getFloor();
+        }
 
+        if (nextFloor > currentFloor.get()) {
+            setState(movingUpState);
+        } else {
+            setState(movingDownState);
+        }
     }
 
     public boolean willAnybodyGoOutAtThisFloor(int floor) {
