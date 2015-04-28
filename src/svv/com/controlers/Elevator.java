@@ -34,41 +34,6 @@ public class Elevator {
         state = atFloorState;
     }
 
-    public Queue<WaiterAtFloor> getQueueOnFloors() {
-        return queueOnFloors;
-    }
-
-    public Queue<Integer> getQueueInElevator() {
-        return queueInElevator;
-    }
-
-    public AtomicInteger getCurrentFloor() {
-        return currentFloor;
-    }
-
-    public void setState(State state) {
-        if (state instanceof MovingDownState) {
-            System.out.println("MovingDownState");
-        } else if (state instanceof MovingUpState) {
-            System.out.println("MovingUpState");
-        } else {
-            System.out.println("AtFloorState");
-        }
-        this.state = state;
-    }
-
-    public MovingUpState getMovingUpState() {
-        return movingUpState;
-    }
-
-    public MovingDownState getMovingDownState() {
-        return movingDownState;
-    }
-
-    public AtFloorState getAtFloorState() {
-        return atFloorState;
-    }
-
     public void addUpWaiter(int currentFloor) {
         queueOnFloors.add(new WaiterAtFloor(currentFloor, Orientation.UP));
     }
@@ -76,7 +41,7 @@ public class Elevator {
     public void addDownWaiter(int currentFloor) {
         queueOnFloors.add(new WaiterAtFloor(currentFloor, Orientation.DOWN));
     }
-    
+
     public void moving() {
         if (state instanceof AtFloorState) {
             Integer nextFloor = queueInElevator.peek();
@@ -92,16 +57,14 @@ public class Elevator {
         state.moving();
     }
 
-    public void setElevatorView(ElevatorView elevatorView) {
-        this.elevatorView = elevatorView;
-    }
-
-    public ElevatorView getElevatorView() {
-        return elevatorView;
-    }
-
-    public void stopped() {
+    public void stoppingAtFloor(int floor) {
+        currentFloor.set(floor);
+        state = atFloorState;
         state.atFloor();
+    }
+
+    public void defineOrientation() {
+
     }
 
     public boolean willAnybodyGoOutAtThisFloor(int floor) {
@@ -121,5 +84,45 @@ public class Elevator {
             }
         }
         return false;
+    }
+
+    public Queue<WaiterAtFloor> getQueueOnFloors() {
+        return queueOnFloors;
+    }
+
+    public Queue<Integer> getQueueInElevator() {
+        return queueInElevator;
+    }
+
+    public AtomicInteger getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public MovingUpState getMovingUpState() {
+        return movingUpState;
+    }
+
+    public MovingDownState getMovingDownState() {
+        return movingDownState;
+    }
+
+    public AtFloorState getAtFloorState() {
+        return atFloorState;
+    }
+
+    public void setElevatorView(ElevatorView elevatorView) {
+        this.elevatorView = elevatorView;
+    }
+
+    public ElevatorView getElevatorView() {
+        return elevatorView;
     }
 }

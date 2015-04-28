@@ -27,8 +27,10 @@ public class AtFloorState implements State {
             return;
         }
 
+        elevator.defineOrientation();
+
         Integer nextFloor = queueInElevator.peek();
-        if (nextFloor == null && queueOnFloors.peek() != null) {
+        if (nextFloor == null) {
             nextFloor = queueOnFloors.peek().getFloor();
         }
 
@@ -37,6 +39,7 @@ public class AtFloorState implements State {
         } else {
             elevator.setState(elevator.getMovingDownState());
         }
+
         elevator.moving();
     }
 

@@ -1,7 +1,5 @@
 package svv.com.controlers;
 
-enum Orientation { UP, DOWN }
-
 public class WaiterAtFloor {
     private int floor;
 

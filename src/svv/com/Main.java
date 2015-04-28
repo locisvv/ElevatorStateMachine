@@ -5,13 +5,16 @@ import svv.com.controlers.ElevatorWorker;
 import svv.com.views.MainFrame;
 
 import javax.swing.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class Main extends JFrame{
 
     public Main() {
         Elevator elevator = new Elevator();
         ElevatorWorker elevatorWorker = new ElevatorWorker(elevator);
-        elevatorWorker.execute();
+
+        Executors.newSingleThreadExecutor().execute(elevatorWorker);
 
         MainFrame mainFrame = new MainFrame(elevator);
         this.add(mainFrame.getBuilding());
