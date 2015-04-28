@@ -36,7 +36,7 @@ public class ElevatorView extends JComponent {
     private void animation() {
         try {
             repaint();
-            TimeUnit.MICROSECONDS.sleep(30000);
+            TimeUnit.MICROSECONDS.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

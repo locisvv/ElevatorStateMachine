@@ -12,13 +12,10 @@ public class MainFrame {
     private JPanel building;
     private Elevator elevator;
 
-    public JPanel getBuilding() {
-        return building;
-    }
-
     public MainFrame(Elevator elevator) {
         this.elevator = elevator;
     }
+
     private void createUIComponents() {
         building = new JPanel();
 
@@ -34,5 +31,9 @@ public class MainFrame {
         elevatorPanel.add(elevatorView);
 
         elevator.setElevatorView(elevatorView);
+    }
+
+    public JPanel getBuilding() {
+        return building;
     }
 }

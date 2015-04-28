@@ -1,7 +1,5 @@
 package svv.com.controlers;
 
-import javax.swing.*;
-
 public class ElevatorWorker implements Runnable {
     private Elevator elevator;
 
