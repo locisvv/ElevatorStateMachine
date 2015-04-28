@@ -48,7 +48,10 @@ public class AtFloorState implements State {
     }
 
     private void comeIn() {
-        while (queueOnFloors.remove(new WaiterAtFloor(elevator.getCurrentFloor().get(), Orientation.DOWN)) ||
-                queueOnFloors.remove(new WaiterAtFloor(elevator.getCurrentFloor().get(), Orientation.UP)));
+        int currentFloor = elevator.getCurrentFloor().get();
+        WaiterAtFloor downWaiter = new WaiterAtFloor(currentFloor, Orientation.DOWN);
+        WaiterAtFloor upWaiter = new WaiterAtFloor(currentFloor, Orientation.UP);
+
+        while (queueOnFloors.remove(downWaiter) || queueOnFloors.remove(upWaiter));
     }
 }
