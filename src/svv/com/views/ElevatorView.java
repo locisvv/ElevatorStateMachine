@@ -14,6 +14,7 @@ public class ElevatorView extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLUE);
+
         g.drawRect(180,                 400 - (floorValue * 7), 18 - openDoorValue, 50);
         g.drawRect(198 + openDoorValue, 400 - (floorValue * 7), 18 - openDoorValue, 50);
     }
@@ -36,13 +37,15 @@ public class ElevatorView extends JComponent {
 
 
     public void openDoor() {
-        for (; openDoorValue < 10; openDoorValue++) {
+        while (openDoorValue < 10) {
+            openDoorValue++;
             animation();
         }
     }
 
     public void closeDoor() {
-        for (; openDoorValue > 0; openDoorValue--) {
+        while (openDoorValue >= 0) {
+            openDoorValue--;
             animation();
         }
     }

@@ -14,8 +14,8 @@ public class MainPanel extends JPanel{
 
     public MainPanel(Elevator elevator) {
         this.elevator = elevator;
-
         this.img = new ImageIcon("house.jpg").getImage();
+
         Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
         setPreferredSize(size);
         setMinimumSize(size);

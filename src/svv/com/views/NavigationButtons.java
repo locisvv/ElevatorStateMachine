@@ -32,7 +32,6 @@ public class NavigationButtons {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     elevator.addUpWaiter(currentFloor);
-                    System.out.println(currentFloor);
                 }
             });
             navigationPanel.add(upButton);
@@ -45,7 +44,6 @@ public class NavigationButtons {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     elevator.addDownWaiter(currentFloor);
-                    System.out.println(currentFloor);
                 }
             });
             navigationPanel.add(downButton);

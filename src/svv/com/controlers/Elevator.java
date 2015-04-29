@@ -49,12 +49,6 @@ public class Elevator {
         state.moving();
     }
 
-    public void stoppingAtFloor(int floor) {
-        currentFloor.set(floor);
-        state = atFloorState;
-        state.atFloor();
-    }
-
     public void defineElevatorOrientation() {
         Integer nextFloor = queueInElevator.peek();
         if (nextFloor == null) {
@@ -66,6 +60,15 @@ public class Elevator {
         } else {
             setState(movingDownState);
         }
+    }
+
+    public void stoppingAtFloor(int floor) {
+        elevatorView.openDoor();
+        elevatorView.closeDoor();
+
+        currentFloor.set(floor);
+        state = atFloorState;
+        state.atFloor();
     }
 
     public boolean willAnybodyGoOutAtThisFloor(int floor) {

@@ -2,8 +2,10 @@ package svv.com.views;
 
 import svv.com.controlers.Elevator;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.AbstractAction;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 public class ElevatorPanelButtons {
@@ -22,12 +24,12 @@ public class ElevatorPanelButtons {
     }
 
     private void addFloorButtons() {
-        for (int i = Elevator.FLOORS; i >= Elevator.FIRST_FLOOR; i--) {
+        for (int i = 1; i <= Elevator.FLOORS; i++) {
             final int floor = i;
 
             JButton floorButton = new JButton(floor + "");
             floorButton.setBackground(Color.white);
-            floorButton.setBounds(520, (floor * 60) + 50, 50,50);
+            floorButton.setBounds(520, ((Elevator.FLOORS - floor) * 60) + 100, 50,50);
             floorButton.addActionListener(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {

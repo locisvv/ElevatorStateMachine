@@ -4,8 +4,8 @@ import svv.com.controlers.Elevator;
 import svv.com.controlers.ElevatorWorker;
 import svv.com.views.MainPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Color;
 import java.util.concurrent.Executors;
 
 public class Main extends JFrame{

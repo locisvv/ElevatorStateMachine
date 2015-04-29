@@ -1,11 +1,8 @@
 package svv.com.views;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import java.awt.Graphics;
 
-/**
- * Created by svv on 4/28/15.
- */
 public class UpButton extends JButton {
 
     @Override

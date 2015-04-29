@@ -28,7 +28,6 @@ public class AtFloorState implements State {
             return;
         }
 
-        elevator.defineElevatorOrientation();
         elevator.moving();
     }
 
