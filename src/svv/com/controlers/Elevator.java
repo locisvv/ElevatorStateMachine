@@ -83,7 +83,8 @@ public class Elevator {
             if (queueOnFloors.contains(new WaiterAtFloor(floor, orientation))){
                 return true;
             }
-            if (queueOnFloors.peek().getFloor() == floor) {
+
+            if (queueInElevator.isEmpty() && queueOnFloors.peek().getFloor() == floor) {
                 return true;
             }
         }

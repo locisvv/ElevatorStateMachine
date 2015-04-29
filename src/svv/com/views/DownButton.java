@@ -3,9 +3,6 @@ package svv.com.views;
 import javax.swing.JButton;
 import java.awt.Graphics;
 
-/**
- * Created by svv on 4/28/15.
- */
 public class DownButton extends JButton {
 
     @Override

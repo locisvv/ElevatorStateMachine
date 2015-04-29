@@ -14,8 +14,9 @@ public class ElevatorView extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLUE);
+        g.drawRect(180, 400 - (floorValue * 7), 36, 50);
 
-        g.drawRect(180,                 400 - (floorValue * 7), 18 - openDoorValue, 50);
+        g.drawRect(180, 400 - (floorValue * 7), 18 - openDoorValue, 50);
         g.drawRect(198 + openDoorValue, 400 - (floorValue * 7), 18 - openDoorValue, 50);
     }
 

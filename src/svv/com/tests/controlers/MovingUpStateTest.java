@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class MovingUpStateTest {
 
-    static final int FIRST_FLOOR = 2;
+    static final int FIRST_FLOOR = 1;
     static final int SECOND_FLOOR = 2;
     static final int  THIRD_FLOOR = 3;
     static final int FOURTH_FLOOR = 4;
