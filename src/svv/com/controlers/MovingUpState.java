@@ -16,6 +16,9 @@ public class MovingUpState implements State {
             if (elevator.willAnybodyGoOutAtThisFloor(floor) ||
                     elevator.willAnybodyGoIntoElevator(floor, Orientation.UP)) {
 
+                elevator.getElevatorView().openDoor();
+                elevator.getElevatorView().closeDoor();
+
                 elevator.stoppingAtFloor(floor);
                 return;
             }

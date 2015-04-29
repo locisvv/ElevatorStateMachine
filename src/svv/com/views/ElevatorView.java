@@ -35,13 +35,13 @@ public class ElevatorView extends JComponent {
     }
 
 
-    private void openDoor() {
+    public void openDoor() {
         for (; openDoorValue < 10; openDoorValue++) {
             animation();
         }
     }
 
-    private void closeDoor() {
+    public void closeDoor() {
         for (; openDoorValue > 0; openDoorValue--) {
             animation();
         }

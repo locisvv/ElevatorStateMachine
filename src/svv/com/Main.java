@@ -5,6 +5,7 @@ import svv.com.controlers.ElevatorWorker;
 import svv.com.views.MainPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.concurrent.Executors;
 
 public class Main extends JFrame{
@@ -22,7 +23,8 @@ public class Main extends JFrame{
     public static void main(String... args) {
         Main main = new Main();
         main.setVisible(true);
-        main.setSize(700, 530);
+        main.setSize(600, 530);
+        main.setBackground(Color.WHITE);
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
