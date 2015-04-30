@@ -13,6 +13,8 @@ public class MovingUpState implements State {
         int currentFloor = elevator.getCurrentFloor().get();
 
         for (int floor = currentFloor; floor <= Elevator.FLOORS; ++floor) {
+            elevator.showCurrentFloor(floor);
+
             if (elevator.willAnybodyGoOutAtThisFloor(floor) ||
                     elevator.willAnybodyGoIntoElevator(floor, Orientation.UP)) {
 

@@ -5,8 +5,12 @@ import svv.com.controlers.Elevator;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
+import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Insets;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.CountDownLatch;
 
 public class ElevatorPanelButtons {
     private JPanel buttonsPanel;
@@ -21,6 +25,7 @@ public class ElevatorPanelButtons {
         buttonsPanel.setOpaque(false);
 
         addFloorButtons();
+        addStopButton();
     }
 
     private void addFloorButtons() {
@@ -38,6 +43,37 @@ public class ElevatorPanelButtons {
             });
             buttonsPanel.add(floorButton);
         }
+    }
+
+    private void addStopButton() {
+        final JButton stopButton = new JButton("STOP");
+        stopButton.setBackground(Color.white);
+        stopButton.setMargin(new Insets(5, 5, 5, 5));
+        stopButton.setFont(new Font("Dialog", 0, 11));
+        stopButton.setBounds(520, 400, 50, 50);
+        stopButton.addActionListener(stopButtonClick(stopButton));
+        buttonsPanel.add(stopButton);
+    }
+
+    private AbstractAction stopButtonClick(final JButton stopButton) {
+        return new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (elevator.getStop()) {
+                    elevator.setStop(false);
+                    elevator.getCountDownLatch().countDown();
+
+                    stopButton.setBorder(new LineBorder(Color.GRAY));
+                    elevator.getElevatorView().repaint();
+                } else {
+                    elevator.setCountDownLatch(new CountDownLatch(1));
+                    elevator.setStop(true);
+
+                    stopButton.setBorder(new LineBorder(Color.RED));
+                    elevator.getElevatorView().repaint();
+                }
+            }
+        };
     }
 
     public JPanel getButtonsPanel() {

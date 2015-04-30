@@ -4,6 +4,7 @@ import svv.com.controlers.Elevator;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextArea;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -26,6 +27,11 @@ public class MainPanel extends JPanel{
         createNavigationButtons();
         createElevatorView();
         createElevatorButtons();
+
+        JTextArea floorTextArea = new JTextArea(Elevator.FIRST_FLOOR + "");
+        floorTextArea.setBounds(250, 10, 100, 20);
+        elevator.setFloorTextArea(floorTextArea);
+        add(floorTextArea);
     }
 
     private void createNavigationButtons() {
@@ -33,7 +39,7 @@ public class MainPanel extends JPanel{
     }
 
     private void createElevatorView() {
-        ElevatorView elevatorView = new ElevatorView();
+        ElevatorView elevatorView = new ElevatorView(elevator);
         elevatorView.setSize(new Dimension(500,500));
         add(elevatorView);
 

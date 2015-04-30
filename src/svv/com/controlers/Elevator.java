@@ -2,8 +2,11 @@ package svv.com.controlers;
 
 import svv.com.views.ElevatorView;
 
+import javax.swing.*;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Elevator {
@@ -12,14 +15,17 @@ public class Elevator {
 
     private Queue<Integer> queueInElevator;
     private Queue<WaiterAtFloor> queueOnFloors;
-    private AtomicInteger currentFloor;
+    private AtomicBoolean isStop = new AtomicBoolean(false);
+    private CountDownLatch countDownLatch;
 
+    private AtomicInteger currentFloor;
     private State state;
     private MovingUpState movingUpState;
     private MovingDownState movingDownState;
     private AtFloorState atFloorState;
 
     private ElevatorView elevatorView;
+    private JTextArea floorTextArea;
 
     public Elevator() {
         currentFloor = new AtomicInteger(FIRST_FLOOR);
@@ -91,6 +97,15 @@ public class Elevator {
         return false;
     }
 
+    public void showCurrentFloor(final int floor) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                floorTextArea.setText(String.valueOf(floor));
+            }
+        });
+    }
+
     public Queue<WaiterAtFloor> getQueueOnFloors() {
         return queueOnFloors;
     }
@@ -129,5 +144,25 @@ public class Elevator {
 
     public ElevatorView getElevatorView() {
         return elevatorView;
+    }
+
+    public void setStop(boolean isStop) {
+        this.isStop.set(isStop);
+    }
+
+    public boolean getStop() {
+        return this.isStop.get();
+    }
+
+    public CountDownLatch getCountDownLatch() {
+        return countDownLatch;
+    }
+
+    public void setCountDownLatch(CountDownLatch countDownLatch) {
+        this.countDownLatch = countDownLatch;
+    }
+
+    public void setFloorTextArea(JTextArea floorTextArea) {
+        this.floorTextArea = floorTextArea;
     }
 }

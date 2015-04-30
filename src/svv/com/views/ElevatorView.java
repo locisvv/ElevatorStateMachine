@@ -1,5 +1,7 @@
 package svv.com.views;
 
+import svv.com.controlers.Elevator;
+
 import javax.swing.JComponent;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -9,13 +11,20 @@ public class ElevatorView extends JComponent {
     private int currentFloor = 0;
     private int floorValue;
     private int openDoorValue;
+    private Elevator elevator;
 
+    public ElevatorView(Elevator elevator) {
+        this.elevator = elevator;
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLUE);
-        g.drawRect(180, 400 - (floorValue * 7), 36, 50);
 
+        if (elevator.getStop()) {
+            g.setColor(Color.RED);
+        }
+        g.drawRect(180, 400 - (floorValue * 7), 36, 50);
         g.drawRect(180, 400 - (floorValue * 7), 18 - openDoorValue, 50);
         g.drawRect(198 + openDoorValue, 400 - (floorValue * 7), 18 - openDoorValue, 50);
     }
@@ -24,6 +33,10 @@ public class ElevatorView extends JComponent {
         for (int i = 0; i <= 10; i++) {
             floorValue = (currentFloor * 10) + i;
             animation();
+
+            if (elevator.getStop()) {
+                stop();
+            }
         }
         currentFloor++;
     }
@@ -32,10 +45,21 @@ public class ElevatorView extends JComponent {
         for (int i = 0; i <= 10; i++) {
             floorValue = (currentFloor * 10) - i;
             animation();
+
+            if (elevator.getStop()) {
+                stop();
+            }
         }
         currentFloor--;
     }
 
+    private void stop() {
+        try {
+            elevator.getCountDownLatch().await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void openDoor() {
         while (openDoorValue < 10) {
