@@ -1,9 +1,7 @@
 package svv.com.controlers;
 
-import svv.com.views.ElevatorView;
+import svv.com.views.MainPanel;
 
-import javax.swing.SwingUtilities;
-import javax.swing.JLabel;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
@@ -25,8 +23,7 @@ public class Elevator {
     private MovingDownState movingDownState;
     private AtFloorState atFloorState;
 
-    private ElevatorView elevatorView;
-    private JLabel floorLabel;
+    private MainPanel mainView;
 
     public Elevator() {
         currentFloor = new AtomicInteger(FIRST_FLOOR);
@@ -70,8 +67,11 @@ public class Elevator {
     }
 
     public void stoppingAtFloor(int floor) {
-        elevatorView.openDoor();
-        elevatorView.closeDoor();
+        mainView.getElevatorView().openDoor();
+        mainView.getElevatorView().closeDoor();
+
+        mainView.getElevatorButtons().setEnabledByFloor(floor);
+        mainView.getNavigationButtons().setEnabledByFloor(floor);
 
         currentFloor.set(floor);
         state = atFloorState;
@@ -93,15 +93,6 @@ public class Elevator {
             }
         }
         return false;
-    }
-
-    public void showCurrentFloor(final int floor) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                floorLabel.setText(String.valueOf(floor));
-            }
-        });
     }
 
     public Queue<WaiterAtFloor> getQueueOnFloors() {
@@ -136,14 +127,6 @@ public class Elevator {
         return atFloorState;
     }
 
-    public void setElevatorView(ElevatorView elevatorView) {
-        this.elevatorView = elevatorView;
-    }
-
-    public ElevatorView getElevatorView() {
-        return elevatorView;
-    }
-
     public void setStop(boolean isStop) {
         this.isStop.set(isStop);
     }
@@ -160,7 +143,11 @@ public class Elevator {
         this.countDownLatch = countDownLatch;
     }
 
-    public void setFloorLabel(JLabel floorLabel) {
-        this.floorLabel = floorLabel;
+    public void setMainView(MainPanel mainView) {
+        this.mainView = mainView;
+    }
+
+    public MainPanel getMainView() {
+        return mainView;
     }
 }
