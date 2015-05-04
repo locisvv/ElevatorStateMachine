@@ -2,7 +2,8 @@ package svv.com.controlers;
 
 import svv.com.views.ElevatorView;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
+import javax.swing.JLabel;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
@@ -25,7 +26,7 @@ public class Elevator {
     private AtFloorState atFloorState;
 
     private ElevatorView elevatorView;
-    private JTextArea floorTextArea;
+    private JLabel floorLabel;
 
     public Elevator() {
         currentFloor = new AtomicInteger(FIRST_FLOOR);
@@ -78,10 +79,7 @@ public class Elevator {
     }
 
     public boolean willAnybodyGoOutAtThisFloor(int floor) {
-        if (queueInElevator.isEmpty()) {
-            return false;
-        }
-        return queueInElevator.contains(floor);
+        return !queueInElevator.isEmpty() && queueInElevator.contains(floor);
     }
 
     public boolean willAnybodyGoIntoElevator(int floor, Orientation orientation) {
@@ -101,7 +99,7 @@ public class Elevator {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                floorTextArea.setText(String.valueOf(floor));
+                floorLabel.setText(String.valueOf(floor));
             }
         });
     }
@@ -162,7 +160,7 @@ public class Elevator {
         this.countDownLatch = countDownLatch;
     }
 
-    public void setFloorTextArea(JTextArea floorTextArea) {
-        this.floorTextArea = floorTextArea;
+    public void setFloorLabel(JLabel floorLabel) {
+        this.floorLabel = floorLabel;
     }
 }

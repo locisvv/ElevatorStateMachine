@@ -24,9 +24,15 @@ public class ElevatorView extends JComponent {
         if (elevator.getStop()) {
             g.setColor(Color.RED);
         }
+        //paint elevator box
         g.drawRect(180, 400 - (floorValue * 7), 36, 50);
         g.drawRect(180, 400 - (floorValue * 7), 18 - openDoorValue, 50);
         g.drawRect(198 + openDoorValue, 400 - (floorValue * 7), 18 - openDoorValue, 50);
+
+        //paint cable
+        g.setColor(Color.black);
+        g.drawLine(194, 400 - (floorValue * 7), 194, 100);
+        g.drawLine(202, 400 - (floorValue * 7), 202, 100);
     }
 
     public void oneFloorUp() {
