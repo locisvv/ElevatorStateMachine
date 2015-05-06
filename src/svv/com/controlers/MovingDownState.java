@@ -13,14 +13,14 @@ public class MovingDownState implements State {
         int currentFloor = elevator.getCurrentFloor().get();
 
         for (int floor = currentFloor; floor >= Elevator.FIRST_FLOOR; --floor) {
-            elevator.showCurrentFloor(floor);
+            elevator.getMainView().showCurrentFloor(floor);
             if (elevator.willAnybodyGoOutAtThisFloor(floor) ||
                     elevator.willAnybodyGoIntoElevator(floor, Orientation.DOWN)) {
 
                 elevator.stoppingAtFloor(floor);
                 return;
             }
-            elevator.getElevatorView().oneFloorDown();
+            elevator.getMainView().getElevatorView().oneFloorDown();
         }
     }
 

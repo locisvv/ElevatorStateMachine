@@ -51,7 +51,7 @@ public class MovingDownStateTest {
     }
 
     @Test
-    public void Moving_SomeWaiters_2ndFloorIsCurrentFloor() throws Exception {
+    public void Moving_SomeDifferentWaiters_2ndFloorIsCurrentFloor() throws Exception {
         elevator.getCurrentFloor().set(5);
         elevator.getQueueOnFloors().add(new WaiterAtFloor(SECOND_FLOOR, Orientation.DOWN));
         elevator.getQueueInElevator().add(FIFTH_FLOOR);

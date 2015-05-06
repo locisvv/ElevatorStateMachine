@@ -38,12 +38,12 @@ public class Elevator {
         state = atFloorState;
     }
 
-    public void addUpWaiter(int currentFloor) {
-        queueOnFloors.add(new WaiterAtFloor(currentFloor, Orientation.UP));
+    public void addUpWaiter(int floor) {
+        queueOnFloors.add(new WaiterAtFloor(floor, Orientation.UP));
     }
 
-    public void addDownWaiter(int currentFloor) {
-        queueOnFloors.add(new WaiterAtFloor(currentFloor, Orientation.DOWN));
+    public void addDownWaiter(int floor) {
+        queueOnFloors.add(new WaiterAtFloor(floor, Orientation.DOWN));
     }
 
     public void moving() {
@@ -52,7 +52,9 @@ public class Elevator {
         }
         state.moving();
     }
-
+    /**
+     * Define where elevator should go up or down
+     * */
     public void defineElevatorOrientation() {
         Integer nextFloor = queueInElevator.peek();
         if (nextFloor == null) {
@@ -65,7 +67,11 @@ public class Elevator {
             setState(movingDownState);
         }
     }
-
+    /**
+     * Stops elevator on that floor
+     *
+     *  @param floor the floor where elevator will stop
+     * */
     public void stoppingAtFloor(int floor) {
         mainView.getElevatorView().openDoor();
         mainView.getElevatorView().closeDoor();
@@ -78,18 +84,40 @@ public class Elevator {
         state.atFloor();
     }
 
+    /**
+     * @param floor the floor where elevator is now
+     *
+     * @return true if anyone want to go out.
+     */
     public boolean willAnybodyGoOutAtThisFloor(int floor) {
         return !queueInElevator.isEmpty() && queueInElevator.contains(floor);
     }
 
-    public boolean willAnybodyGoIntoElevator(int floor, Orientation orientation) {
+    /**
+     * @param currentFloor the floor where elevator is now
+     * @param orientation the elevator orientation
+     *
+     * @return true if anyone want to enter
+     */
+    public boolean willAnybodyGoIntoElevator(int currentFloor, Orientation orientation) {
         if (!queueOnFloors.isEmpty()) {
-            if (queueOnFloors.contains(new WaiterAtFloor(floor, orientation))){
+            if (queueOnFloors.contains(new WaiterAtFloor(currentFloor, orientation))){
                 return true;
             }
 
-            if (queueInElevator.isEmpty() && queueOnFloors.peek().getFloor() == floor) {
-                return true;
+            int floor = queueOnFloors.peek().getFloor();
+            if (queueInElevator.isEmpty()) {
+                return floor == currentFloor;
+            } else {
+                if (orientation == Orientation.UP) {
+                    if (queueInElevator.peek() < floor) {
+                        return floor == currentFloor;
+                    }
+                } else {
+                    if ((queueInElevator.peek() > floor)) {
+                        return floor == currentFloor;
+                    }
+                }
             }
         }
         return false;

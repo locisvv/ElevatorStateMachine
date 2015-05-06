@@ -5,12 +5,19 @@ import svv.com.controlers.Elevator;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 
 public class MainPanel extends JPanel{
     private ImageIcon img;
     private Elevator elevator;
+
+    private JLabel floorLabel;
+    private ElevatorView elevatorView;
+    private ElevatorButtons elevatorButtons;
+    private NavigationButtons navigationButtons;
 
     public MainPanel(Elevator elevator) {
         this.elevator = elevator;
@@ -26,22 +33,28 @@ public class MainPanel extends JPanel{
         createElevatorView();
         createElevatorButtons();
         createFloorLabel();
+
+        elevator.setMainView(this);
+    }
+
+    public void paintComponent(Graphics g) {
+        g.drawImage(img.getImage(), 0, 0, null);
     }
 
     private void createNavigationButtons() {
-        add(new NavigationButtons(elevator).getNavigationPanel());
+        navigationButtons = new NavigationButtons(elevator);
+        add(navigationButtons.getNavigationPanel());
     }
 
     private void createElevatorView() {
-        ElevatorView elevatorView = new ElevatorView(elevator);
+        elevatorView = new ElevatorView(elevator);
         elevatorView.setSize(new Dimension(500, 500));
         add(elevatorView);
-
-        elevator.setElevatorView(elevatorView);
     }
 
     private void createElevatorButtons() {
-        add(new ElevatorPanelButtons(elevator).getButtonsPanel());
+        elevatorButtons = new ElevatorButtons(elevator);
+        add(elevatorButtons.getButtonsPanel());
     }
 
     private void createFloorLabel() {
@@ -49,13 +62,29 @@ public class MainPanel extends JPanel{
         currentFloorLabel.setBounds(200, 10, 140, 30);
         add(currentFloorLabel);
 
-        JLabel floorLabel = new JLabel(Elevator.FIRST_FLOOR + "");
+        floorLabel = new JLabel(Elevator.FIRST_FLOOR + "");
         floorLabel.setBounds(300, 10, 140, 30);
-        elevator.setFloorLabel(floorLabel);
         add(floorLabel);
     }
 
-    public void paintComponent(Graphics g) {
-        g.drawImage(img.getImage(), 0, 0, null);
+    public void showCurrentFloor(final int floor) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                floorLabel.setText(String.valueOf(floor));
+            }
+        });
+    }
+
+    public ElevatorView getElevatorView() {
+        return elevatorView;
+    }
+
+    public ElevatorButtons getElevatorButtons() {
+        return elevatorButtons;
+    }
+
+    public NavigationButtons getNavigationButtons() {
+        return navigationButtons;
     }
 }

@@ -3,20 +3,23 @@ package svv.com.views;
 import svv.com.controlers.Elevator;
 
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import javax.swing.border.LineBorder;
+import javax.swing.SwingUtilities;
+
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.concurrent.CountDownLatch;
 
-public class ElevatorPanelButtons {
+public class ElevatorButtons {
     private JPanel buttonsPanel;
     private Elevator elevator;
 
-    public ElevatorPanelButtons(Elevator elevator) {
+    public ElevatorButtons(Elevator elevator) {
         this.elevator = elevator;
 
         buttonsPanel = new JPanel();
@@ -32,17 +35,32 @@ public class ElevatorPanelButtons {
         for (int i = 1; i <= Elevator.FLOORS; i++) {
             final int floor = i;
 
-            JButton floorButton = new JButton(floor + "");
+            final JToggleButton floorButton = new JToggleButton(floor + "");
             floorButton.setBackground(Color.white);
-            floorButton.setBounds(520, ((Elevator.FLOORS - floor) * 60) + 100, 50,50);
+            floorButton.setBounds(520, ((Elevator.FLOORS - floor) * 60) + 100, 50, 50);
             floorButton.addActionListener(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
+                    floorButton.setEnabled(false);
                     elevator.getQueueInElevator().add(floor);
                 }
             });
             buttonsPanel.add(floorButton);
         }
+    }
+
+    public void setEnabledByFloor(final int floor) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                getButtonByFloor(floor).setEnabled(true);
+                getButtonByFloor(floor).setSelected(false);
+            }
+        });
+    }
+
+    private JToggleButton getButtonByFloor(int floor) {
+        return (JToggleButton) buttonsPanel.getComponents()[floor - 1];
     }
 
     private void addStopButton() {
@@ -64,13 +82,13 @@ public class ElevatorPanelButtons {
                     elevator.getCountDownLatch().countDown();
 
                     stopButton.setBorder(new LineBorder(Color.GRAY));
-                    elevator.getElevatorView().repaint();
+                    elevator.getMainView().getElevatorView().repaint();
                 } else {
                     elevator.setCountDownLatch(new CountDownLatch(1));
                     elevator.setStop(true);
 
                     stopButton.setBorder(new LineBorder(Color.RED));
-                    elevator.getElevatorView().repaint();
+                    elevator.getMainView().getElevatorView().repaint();
                 }
             }
         };

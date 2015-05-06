@@ -41,7 +41,7 @@ public class ElevatorTest {
     }
 
     @Test
-    public void WillAnybodyGoIntoElevator_2ndFloorAndDiferentOrientation_True() throws Exception {
+    public void WillAnybodyGoIntoElevator_2ndFloorAndDifferentOrientation_True() throws Exception {
         elevator.getQueueOnFloors().add(new WaiterAtFloor(2, Orientation.UP));
         assertTrue(elevator.willAnybodyGoIntoElevator(2, Orientation.DOWN));
     }
@@ -53,4 +53,13 @@ public class ElevatorTest {
         elevator.getQueueOnFloors().add(new WaiterAtFloor(2, Orientation.UP));
         assertFalse(elevator.willAnybodyGoIntoElevator(3, Orientation.DOWN));
     }
+
+    @Test
+    public void WillAnybodyGoIntoElevator_5thFloorWaitersAnd3rdElevatorWaiter_False() throws Exception {
+        elevator.getQueueOnFloors().add(new WaiterAtFloor(5, Orientation.DOWN));
+        elevator.getQueueInElevator().add(3);
+
+        assertTrue(elevator.willAnybodyGoIntoElevator(5, Orientation.UP));
+    }
+
 }
