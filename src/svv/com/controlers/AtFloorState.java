@@ -21,14 +21,13 @@ public class AtFloorState implements State {
 
     @Override
     public void atFloor() {
+        elevator.getMainView().getElevatorView().openDoor();
+        elevator.getMainView().setEnabledButtonsByCurrentFloor();
+
         goOut();
         comeIn();
 
-        if (queueInElevator.isEmpty() && queueOnFloors.isEmpty()) {
-            return;
-        }
-
-        elevator.moving();
+        elevator.getMainView().getElevatorView().closeDoor();
     }
 
     private void goOut() {
