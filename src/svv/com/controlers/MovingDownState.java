@@ -14,6 +14,7 @@ public class MovingDownState implements State {
 
         for (int floor = currentFloor; floor >= Elevator.FIRST_FLOOR; --floor) {
             elevator.getMainView().showCurrentFloor(floor);
+
             if (elevator.willAnybodyGoOutAtThisFloor(floor) ||
                     elevator.willAnybodyGoIntoElevator(floor, Orientation.DOWN)) {
 

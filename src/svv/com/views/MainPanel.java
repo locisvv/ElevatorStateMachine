@@ -80,11 +80,9 @@ public class MainPanel extends JPanel{
         return elevatorView;
     }
 
-    public ElevatorButtons getElevatorButtons() {
-        return elevatorButtons;
+    public void setEnabledButtonsByCurrentFloor() {
+        elevatorButtons.setEnabledByFloor(elevator.getCurrentFloor().get());
+        navigationButtons.setEnabledByFloor(elevator.getCurrentFloor().get());
     }
 
-    public NavigationButtons getNavigationButtons() {
-        return navigationButtons;
-    }
 }

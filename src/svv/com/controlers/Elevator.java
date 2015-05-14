@@ -68,23 +68,18 @@ public class Elevator {
         }
     }
     /**
-     * Stops elevator on that floor
+     * Stops elevator on that floor and change moving state to AtFloorState
      *
      *  @param floor the floor where elevator will stop
      * */
     public void stoppingAtFloor(int floor) {
-        mainView.getElevatorView().openDoor();
-        mainView.getElevatorView().closeDoor();
-
-        mainView.getElevatorButtons().setEnabledByFloor(floor);
-        mainView.getNavigationButtons().setEnabledByFloor(floor);
-
         currentFloor.set(floor);
         state = atFloorState;
         state.atFloor();
     }
 
     /**
+     * Return true if anyone want to go out
      * @param floor the floor where elevator is now
      *
      * @return true if anyone want to go out.
@@ -94,6 +89,8 @@ public class Elevator {
     }
 
     /**
+     * Return true if anyone want to enter in elevator
+     *
      * @param currentFloor the floor where elevator is now
      * @param orientation the elevator orientation
      *

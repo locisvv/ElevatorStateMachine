@@ -24,17 +24,6 @@ public class MovingUpStateTest {
     }
 
     @Test
-    public void Moving_5thFloorWaiterAndOtherWaitersOnDifferentFloors_4ndFloorIsCurrentFloor() throws Exception {
-        elevator.getQueueInElevator().add(SECOND_FLOOR);
-        elevator.getQueueInElevator().add(FIFTH_FLOOR);
-        elevator.getQueueInElevator().add(THIRD_FLOOR);
-        elevator.getQueueInElevator().add(FOURTH_FLOOR);
-        elevator.getMovingUpState().moving();
-
-        assertEquals(elevator.getCurrentFloor().get(), FIFTH_FLOOR);
-    }
-
-    @Test
     public void Moving_4thFloorAnd1stFloorWaiters_ElevatorDontGoDown() throws Exception {
         elevator.getQueueInElevator().add(FOURTH_FLOOR);
         elevator.getMovingUpState().moving();

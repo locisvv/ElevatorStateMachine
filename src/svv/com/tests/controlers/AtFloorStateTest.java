@@ -15,11 +15,12 @@ public class AtFloorStateTest {
     @Before
     public void runBeforeEveryTest() {
         elevator = new Elevator();
-        MainPanel mainPanel = new MainPanel(elevator);
+        new MainPanel(elevator);
     }
 
     @Test
     public void AtFloor_2dnFloorWaiter_EmptyQueue() throws Exception {
+        elevator.getCurrentFloor().set(2);
         elevator.getQueueOnFloors().add(new WaiterAtFloor(2, Orientation.UP));
         elevator.getAtFloorState().atFloor();
 
@@ -28,11 +29,12 @@ public class AtFloorStateTest {
 
     @Test
     public void AtFloor_SomeWaiter_EmptyQueue() throws Exception {
+        elevator.getCurrentFloor().set(2);
         elevator.getQueueOnFloors().add(new WaiterAtFloor(2, Orientation.UP));
-        elevator.getQueueOnFloors().add(new WaiterAtFloor(4, Orientation.DOWN));
-        elevator.getQueueOnFloors().add(new WaiterAtFloor(1, Orientation.UP));
-        elevator.getQueueOnFloors().add(new WaiterAtFloor(5, Orientation.DOWN));
+        elevator.getAtFloorState().atFloor();
 
+        elevator.getCurrentFloor().set(4);
+        elevator.getQueueOnFloors().add(new WaiterAtFloor(4, Orientation.DOWN));
         elevator.getAtFloorState().atFloor();
 
         assertTrue(elevator.getQueueOnFloors().isEmpty());
@@ -40,37 +42,37 @@ public class AtFloorStateTest {
 
     @Test
     public void AtFloor_2dnFloorWaiterInElevator_EmptyElevatorQueue() throws Exception {
+        elevator.getCurrentFloor().set(2);
         elevator.getQueueInElevator().add(2);
-
         elevator.getAtFloorState().atFloor();
 
         assertTrue(elevator.getQueueInElevator().isEmpty());
     }
 
     @Test
-    public void AtFloor_SomeWaitersInElevator_EmptyElevatorQueue() throws Exception {
+    public void AtFloor_AddTwoWaitersInElevator_EmptyElevatorQueue() throws Exception {
+        elevator.getCurrentFloor().set(2);
         elevator.getQueueInElevator().add(2);
+        elevator.getAtFloorState().atFloor();
+
+        elevator.getCurrentFloor().set(5);
         elevator.getQueueInElevator().add(5);
-        elevator.getQueueInElevator().add(1);
-        elevator.getQueueInElevator().add(4);
-
         elevator.getAtFloorState().atFloor();
 
         assertTrue(elevator.getQueueInElevator().isEmpty());
     }
 
     @Test
-    public void AtFloor_SomeDiferentWaiters_BouthQueueAreEmpty() throws Exception {
+    public void AtFloor_AddTwoDifferentWaiters_BoutsQueueAreEmpty() throws Exception {
+        elevator.getCurrentFloor().set(2);
+
         elevator.getQueueInElevator().add(2);
         elevator.getQueueOnFloors().add(new WaiterAtFloor(2, Orientation.UP));
-        elevator.getQueueInElevator().add(5);
-        elevator.getQueueOnFloors().add(new WaiterAtFloor(4, Orientation.DOWN));
-        elevator.getQueueInElevator().add(1);
-        elevator.getQueueInElevator().add(4);
-        elevator.getQueueOnFloors().add(new WaiterAtFloor(1, Orientation.UP));
+        elevator.getQueueOnFloors().add(new WaiterAtFloor(2, Orientation.DOWN));
 
         elevator.getAtFloorState().atFloor();
 
+        assertTrue(elevator.getQueueOnFloors().isEmpty());
         assertTrue(elevator.getQueueInElevator().isEmpty());
     }
 

@@ -19,7 +19,7 @@ public class MovingDownStateTest {
     @Before
     public void runBeforeEveryTest() {
         elevator = new Elevator();
-        MainPanel mainPanel = new MainPanel(elevator);
+        new MainPanel(elevator);
     }
 
     @Test
@@ -44,20 +44,6 @@ public class MovingDownStateTest {
     public void Moving_UpWaiters_2ndFloorIsCurrentFloor() throws Exception {
         elevator.getCurrentFloor().set(FOURTH_FLOOR);
         elevator.getQueueOnFloors().add(new WaiterAtFloor(SECOND_FLOOR, Orientation.DOWN));
-
-        elevator.getMovingDownState().moving();
-
-        assertEquals(elevator.getCurrentFloor().get(), SECOND_FLOOR);
-    }
-
-    @Test
-    public void Moving_SomeDifferentWaiters_2ndFloorIsCurrentFloor() throws Exception {
-        elevator.getCurrentFloor().set(5);
-        elevator.getQueueOnFloors().add(new WaiterAtFloor(SECOND_FLOOR, Orientation.DOWN));
-        elevator.getQueueInElevator().add(FIFTH_FLOOR);
-        elevator.getQueueInElevator().add(FOURTH_FLOOR);
-        elevator.getQueueOnFloors().add(new WaiterAtFloor(FOURTH_FLOOR, Orientation.UP));
-        elevator.getQueueInElevator().add(THIRD_FLOOR);
 
         elevator.getMovingDownState().moving();
 
